@@ -5,6 +5,7 @@ import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +14,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
 /**
  * @ describe 
  * 
@@ -25,7 +30,7 @@ import android.widget.Button;
  * @ return
  */
 public class MainActivity extends Activity {
-
+     Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +39,35 @@ public class MainActivity extends Activity {
 
     private void viewsSetup() {
         setContentView(R.layout.activity_main);
-
-        final Button button = (Button) findViewById(R.id.button);
+          final Button button4= (Button) findViewById(R.id.button4);
+          button4.setOnClickListener(new OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  Toast.makeText(MainActivity.this,"button4",Toast.LENGTH_LONG).show();
+              }
+          });
+        button  = (Button) findViewById(R.id.button);
+        final ViewGroup container1 = (ViewGroup) button.getParent().getParent();
+///        container.getOverlay().add(button);
+        TextView textView=new TextView(this);
+        textView.setBackgroundColor(Color.RED);
+        textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        textView.setText("test");
+        textView.setTextColor(Color.GREEN);
+        textView.setTextSize(100);
+        container1.getOverlay().add(textView);
+        textView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"test",Toast.LENGTH_LONG).show();
+            }
+        });
+        container1.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"container",Toast.LENGTH_LONG).show();
+            }
+        });
 
         button.setOnClickListener(new OnClickListener() {
 
@@ -53,7 +85,7 @@ public class MainActivity extends Activity {
 
 				/*
 				 * Button needs to be removed after animation ending
-				 * When we have added the view to the ViewOverlay, 
+				 * When we have added the view to the ViewOverlay,
 				 * it was removed from its original parent.
 				 */
                 anim.addListener(new AnimatorListener() {
@@ -179,4 +211,10 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+//        final ViewGroup container = (ViewGroup) button.getParent().getParent();
+//        container.getOverlay().add(button);
+    }
 }

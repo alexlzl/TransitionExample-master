@@ -49,5 +49,10 @@
             android:layout_gravity="center"
             android:text="ViewOverlay on other parent" />
     </FrameLayout>
+    <Button
+        android:text="button4"
+        android:id="@+id/button4"
+        android:layout_width="100dp"
+        android:layout_height="50dp" />
 
 </LinearLayout>
